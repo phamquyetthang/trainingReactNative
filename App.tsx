@@ -5,12 +5,11 @@ import StackNavigator from './src/navigation/StackNavigator';
 import {reducer} from './src/state/Reducer';
 const store = createStore(reducer);
 const App = () => {
-  return(
+  return (
     <Provider store={store}>
-    <StackNavigator />
-  </Provider>
+      <StackNavigator />
+    </Provider>
   );
-  
 };
 
 export default App;

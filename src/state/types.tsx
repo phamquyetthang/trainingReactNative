@@ -18,7 +18,6 @@ export enum ActionTypes{
     DELETE = "DELETE",
     MARD = "MARD"
 }
-
 export interface TypeAction{
     type: ActionTypes,
     id: string,

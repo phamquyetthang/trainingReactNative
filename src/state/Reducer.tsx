@@ -20,11 +20,20 @@ export const reducer = (state = initData, action: TypeAction): TypeState => {
     case ActionTypes.CALLAPI: {
       return {
         ...state,
-        data: action.data?.concat(state.data)
-      }
+        data: action.data?.concat(state.data),
+      };
     }
-    case ActionTypes.BOLD: {
-      return state;
+    case ActionTypes.MARD: {
+      return {
+        ...state,
+        data: state.data.map((i) => {
+          if ((i.id === action.id)) {
+            return {...i, status: !i.status};
+          } else {
+            return i;
+          };
+        }),
+      };
     }
     default:
       return state;
