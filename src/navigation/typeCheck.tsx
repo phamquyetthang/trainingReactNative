@@ -1,5 +1,5 @@
 import {RouteProp} from '@react-navigation/native';
-import {ApiItem} from '../screens/ListUser';
+import { ApiItem } from '../state/types';
 
 export type RootStackParamList = {
   Auth: undefined;
