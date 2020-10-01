@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, Text, View, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {connect, useDispatch} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import {getApiToData, mardRow, deleteRow} from '../state/actions';
 import {ApiItem, TypeState} from '../state/types';
 import {ItemTable, styles} from '../Styles';
@@ -12,15 +12,14 @@ interface ApiData {
   data: ApiItem[];
   fail?: boolean;
 }
-const ListUser: React.FC<ApiData> = ({data}): React.ReactElement => {
-  // const [dataApi, setDataApi] = useState<ApiData>({
-  //   data: [],
-  // });
+const ListUser: React.FC<ApiData> = (): React.ReactElement => {
   const [showModal, setShowModal] = useState({
     show: false,
     id: '',
   });
   const dispatch = useDispatch();
+  const selectIsOn = (state: TypeState) => state.data;
+  const data = useSelector(selectIsOn)
   useEffect(() => {
     const getApi = async () => {
       try {
@@ -91,11 +90,6 @@ const ListUser: React.FC<ApiData> = ({data}): React.ReactElement => {
     </View>
   );
 };
-function mapStateToProps(state: TypeState) {
-  return {
-    data: state.data,
-  };
-}
-export default connect(mapStateToProps)(ListUser);
+export default ListUser;
 
 // export default ListUser;
