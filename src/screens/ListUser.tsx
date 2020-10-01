@@ -4,7 +4,7 @@ import {FlatList, Text, View, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {connect, useDispatch} from 'react-redux';
-import {getApiToData, mardRow, deleteRow} from '../state/Actions';
+import {getApiToData, mardRow, deleteRow} from '../state/actions';
 import {ApiItem, TypeState} from '../state/types';
 import {ItemTable, styles} from '../Styles';
 
