@@ -1,25 +1,26 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {FlatList, Text, TouchableOpacity, View} from 'react-native';
-export interface ApiItem {
-  id?: string;
-  createdAt?: string;
-  name?: string;
-  email?: string;
-  username?: string;
-  balance?: string;
-  factor_authentication?: boolean;
-  user_ref?: string;
-  status?: boolean;
-}
+import {FlatList, Text, View, TouchableOpacity} from 'react-native';
+import Modal from 'react-native-modal';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {connect, useDispatch} from 'react-redux';
+import {getApiToData, mardRow, deleteRow} from '../state/actions';
+import {ApiItem, TypeState} from '../state/types';
+import {ItemTable, styles} from '../Styles';
+
 interface ApiData {
   data: ApiItem[];
   fail?: boolean;
 }
-const ListUser: React.FC = (): React.ReactElement => {
-  const [dataApi, setDataApi] = useState<ApiData>({
-    data: [],
+const ListUser: React.FC<ApiData> = ({data}): React.ReactElement => {
+  // const [dataApi, setDataApi] = useState<ApiData>({
+  //   data: [],
+  // });
+  const [showModal, setShowModal] = useState({
+    show: false,
+    id: '',
   });
+  const dispatch = useDispatch();
   useEffect(() => {
     const getApi = async () => {
       try {
@@ -27,39 +28,74 @@ const ListUser: React.FC = (): React.ReactElement => {
           'https://5f0c22f99d1e150016b37d39.mockapi.io/api/v1/users/',
         );
         let jsonData = await response.json();
-        setDataApi({
-          data: jsonData,
-        });
+        dispatch(getApiToData(jsonData));
         // console.log(dataApi.data);
       } catch (error) {
-        setDataApi({
-          data: [],
-        });
+        // setDataApi({
+        //   data: [],
+        // });
+        dispatch(getApiToData([]));
       }
     };
     getApi();
   }, []);
   const navigation = useNavigation();
+  function mardItem(id: string) {
+    dispatch(mardRow(id));
+  }
+  function deleItem(id: string) {
+    setShowModal({show: true, id: id});
+    // dispatch(deleteRow(id));
+  }
   const renderItem = ({item}: {item: ApiItem}) => (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('UserDetail', {data: item})}
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 4,
-        margin: 16,
-      }}>
+    <ItemTable onPress={() => navigation.navigate('UserDetail', {data: item})}>
       <Text>{item.username}</Text>
-      <Text>{item.name}</Text>
+      <Text style={{width: 150}}>{item.name}</Text>
       <Text>{item.balance}</Text>
-    </TouchableOpacity>
+      <Icon
+        onPress={() => mardItem(String(item.id))}
+        name={item.status ? 'md-star' : 'md-star-outline'}
+        size={24}
+        color="hotpink"></Icon>
+      <Icon
+        onPress={() => deleItem(String(item.id))}
+        name="md-trash"
+        size={24}
+        color="hotpink"></Icon>
+    </ItemTable>
   );
 
   return (
     <View>
-      <FlatList data={dataApi.data} renderItem={renderItem} />
+      <Modal isVisible={showModal.show}>
+        <View style={styles.modal}>
+          <Text>Bạn có chắc muốn xóa hàng này</Text>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(deleteRow(showModal.id));
+                setShowModal({show: false, id: ''});
+              }}>
+              <Text>Xóa</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setShowModal({show: false, id: ''});
+              }}>
+              <Text>Thoát</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <FlatList data={data} renderItem={renderItem} />
     </View>
   );
 };
+function mapStateToProps(state: TypeState) {
+  return {
+    data: state.data,
+  };
+}
+export default connect(mapStateToProps)(ListUser);
 
-export default ListUser;
+// export default ListUser;
