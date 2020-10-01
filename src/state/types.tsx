@@ -14,7 +14,6 @@ export interface TypeState{
 }
 export enum ActionTypes{
     CALLAPI = "CALAPI",
-    BOLD = "BOLD",
     DELETE = "DELETE",
     MARD = "MARD"
 }

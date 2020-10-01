@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {connect, useDispatch} from 'react-redux';
 import {getApiToData, mardRow, deleteRow} from '../state/Actions';
 import {ApiItem, TypeState} from '../state/types';
-import {ItemTable} from '../Styles';
+import {ItemTable, styles} from '../Styles';
 
 interface ApiData {
   data: ApiItem[];
@@ -68,18 +68,9 @@ const ListUser: React.FC<ApiData> = ({data}): React.ReactElement => {
   return (
     <View>
       <Modal isVisible={showModal.show}>
-        <View
-          style={{
-            width: 200,
-            height: 100,
-            backgroundColor: '#fff',
-            borderRadius: 8,
-            alignSelf: 'center',
-            padding: 12,
-            justifyContent: "space-between"
-          }}>
+        <View style={styles.modal}>
           <Text>Bạn có chắc muốn xóa hàng này</Text>
-          <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <TouchableOpacity
               onPress={() => {
                 dispatch(deleteRow(showModal.id));

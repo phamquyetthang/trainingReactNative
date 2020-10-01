@@ -31,6 +31,15 @@ export const styles = StyleSheet.create({
     marginTop: 30,
     backgroundColor: 'pink',
   },
+  modal: {
+    width: 200,
+    height: 100,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    alignSelf: 'center',
+    padding: 12,
+    justifyContent: 'space-between',
+  },
 });
 
 export const ItemTable = styled.TouchableOpacity`
@@ -38,5 +47,5 @@ export const ItemTable = styled.TouchableOpacity`
   justify-content: space-between;
   padding: 12px;
   margin: 8px;
-  background-color: #BFF4BB;
+  background-color: #bff4bb;
 `;
