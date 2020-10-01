@@ -1,25 +1,19 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
-export interface ApiItem {
-  id?: string;
-  createdAt?: string;
-  name?: string;
-  email?: string;
-  username?: string;
-  balance?: string;
-  factor_authentication?: boolean;
-  user_ref?: string;
-  status?: boolean;
-}
+import { connect, useDispatch } from 'react-redux';
+import { getApiToData } from '../state/Actions';
+import { ApiItem, TypeState } from '../state/types';
+
 interface ApiData {
   data: ApiItem[];
   fail?: boolean;
 }
-const ListUser: React.FC = (): React.ReactElement => {
+const ListUser: React.FC<ApiData> = ({data}): React.ReactElement => {
   const [dataApi, setDataApi] = useState<ApiData>({
     data: [],
   });
+  const dispatch = useDispatch()
   useEffect(() => {
     const getApi = async () => {
       try {
@@ -30,6 +24,7 @@ const ListUser: React.FC = (): React.ReactElement => {
         setDataApi({
           data: jsonData,
         });
+        dispatch(getApiToData(jsonData));
         // console.log(dataApi.data);
       } catch (error) {
         setDataApi({
@@ -57,9 +52,15 @@ const ListUser: React.FC = (): React.ReactElement => {
 
   return (
     <View>
-      <FlatList data={dataApi.data} renderItem={renderItem} />
+      <FlatList data={data} renderItem={renderItem} />
     </View>
   );
 };
+function mapStateToProps(state: TypeState){
+  return{ 
+      data: state.data
+  };
+}
+export default connect(mapStateToProps)(ListUser);
 
-export default ListUser;
+// export default ListUser;
