@@ -15,7 +15,7 @@ const StackNavigator: React.FC = () => {
         screenOptions={{
           header: () => false,
         }}>
-        {/* <Stack.Screen name="Auth" component={Auth} /> */}
+        <Stack.Screen name="Auth" component={Auth} />
         <Stack.Screen name="ListUser" component={ListUser} />
         <Stack.Screen name="UserDetail" component={UserDetail} />
       </Stack.Navigator>

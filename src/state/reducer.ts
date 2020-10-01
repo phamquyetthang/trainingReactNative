@@ -8,7 +8,7 @@ export const reducer = (state = initData, action: TypeAction): TypeState => {
     case ActionTypes.CALLAPI: {
       return {
         ...state,
-        data: action.data?.concat(state.data),
+        data: action.data,
       };
     }
     case ActionTypes.MARD: {
