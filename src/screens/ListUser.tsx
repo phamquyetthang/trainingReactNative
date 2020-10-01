@@ -3,16 +3,12 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, Text, View, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import {getApiToData, mardRow, deleteRow} from '../state/actions';
 import {ApiItem, TypeState} from '../state/types';
 import {ItemTable, styles} from '../Styles';
 
-interface ApiData {
-  data: ApiItem[];
-  fail?: boolean;
-}
-const ListUser: React.FC<ApiData> = (): React.ReactElement => {
+const ListUser: React.FC = (): React.ReactElement => {
   const [showModal, setShowModal] = useState({
     show: false,
     id: '',
