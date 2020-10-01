@@ -35,6 +35,12 @@ export const reducer = (state = initData, action: TypeAction): TypeState => {
         }),
       };
     }
+    case ActionTypes.DELETE:{
+      return {
+        ...state,
+        data: state.data.filter((i) => i.id!==action.id)
+      }
+    }
     default:
       return state;
   }

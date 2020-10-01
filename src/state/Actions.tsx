@@ -6,3 +6,6 @@ export function getApiToData(data: ApiItem[]):TypeAction{
 export function mardRow(id: string):TypeAction{
     return{type: ActionTypes.MARD , data: [], id : id}
 }
+export function deleteRow(id: string):TypeAction{
+    return{type: ActionTypes.DELETE , data: [], id : id}
+}
