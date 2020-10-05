@@ -5,17 +5,25 @@ export interface ApiItem {
     email?: string;
     username?: string;
     balance?: string;
-    factor_authentication?: boolean;
+    factor_authentication: false|boolean;
     user_ref?: string;
     status?: boolean;
   }
 export interface TypeState{
     data: ApiItem[];
+    filter: string;
+    checkAll: boolean;
+    startAll: boolean;
 }
 export enum ActionTypes{
     CALLAPI = "CALAPI",
     DELETE = "DELETE",
-    MARD = "MARD"
+    MARD = "MARD",
+    FILTER = "FILTER",
+    CHECK="CHECK",
+    CHECKALL = "CHECKALL",
+    MARDALL = "MARDALL",
+    DELEALL = "DELEALL"
 }
 export interface TypeAction{
     type: ActionTypes,

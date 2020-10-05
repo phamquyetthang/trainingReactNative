@@ -49,3 +49,19 @@ export const ItemTable = styled.TouchableOpacity`
   margin: 8px;
   background-color: #bff4bb;
 `;
+export const ActionBar = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px;
+  margin: 8px;
+  background-color: #bff4bb;
+`;
+export const Filter = styled.TouchableOpacity`
+  position: absolute;
+  z-index: 22;
+  left: 18px;
+  bottom: 32px;
+  padding: 8px;
+  background-color: beige;
+  border-radius: 32px;
+`;

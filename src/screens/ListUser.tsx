@@ -1,25 +1,29 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, Text, View, TouchableOpacity} from 'react-native';
+import {CheckBox} from 'react-native-elements';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {connect, useDispatch, useSelector} from 'react-redux';
-import {getApiToData, mardRow, deleteRow} from '../state/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import HeaderList from '../components/HeaderList';
+import {getApiToData, mardRow, deleteRow, checkRow} from '../state/actions';
 import {ApiItem, TypeState} from '../state/types';
 import {ItemTable, styles} from '../Styles';
 
-interface ApiData {
-  data: ApiItem[];
-  fail?: boolean;
-}
-const ListUser: React.FC<ApiData> = (): React.ReactElement => {
+const ListUser: React.FC = (): React.ReactElement => {
   const [showModal, setShowModal] = useState({
     show: false,
     id: '',
   });
   const dispatch = useDispatch();
-  const selectIsOn = (state: TypeState) => state.data;
-  const data = useSelector(selectIsOn)
+  const selectIsOn = (state: TypeState) => state;
+  let dataraw = useSelector(selectIsOn);
+  const data =
+    dataraw.filter === 'STAR'
+      ? dataraw.data.filter((i) => i.status == true)
+      : dataraw.filter === 'NOSTAR'
+      ? dataraw.data.filter((i) => i.status == false)
+      : dataraw.data;
   useEffect(() => {
     const getApi = async () => {
       try {
@@ -28,11 +32,7 @@ const ListUser: React.FC<ApiData> = (): React.ReactElement => {
         );
         let jsonData = await response.json();
         dispatch(getApiToData(jsonData));
-        // console.log(dataApi.data);
       } catch (error) {
-        // setDataApi({
-        //   data: [],
-        // });
         dispatch(getApiToData([]));
       }
     };
@@ -48,8 +48,13 @@ const ListUser: React.FC<ApiData> = (): React.ReactElement => {
   }
   const renderItem = ({item}: {item: ApiItem}) => (
     <ItemTable onPress={() => navigation.navigate('UserDetail', {data: item})}>
+      <CheckBox
+        containerStyle={{margin: 0, padding: 0}}
+        checked={item.factor_authentication}
+        onPress={()=>dispatch(checkRow(String(item.id)))}
+      />
       <Text>{item.username}</Text>
-      <Text style={{width: 150}}>{item.name}</Text>
+      <Text style={{width: 130}}>{item.name}</Text>
       <Text>{item.balance}</Text>
       <Icon
         onPress={() => mardItem(String(item.id))}
@@ -63,7 +68,6 @@ const ListUser: React.FC<ApiData> = (): React.ReactElement => {
         color="hotpink"></Icon>
     </ItemTable>
   );
-
   return (
     <View>
       <Modal isVisible={showModal.show}>
@@ -86,10 +90,9 @@ const ListUser: React.FC<ApiData> = (): React.ReactElement => {
           </View>
         </View>
       </Modal>
+      <HeaderList />
       <FlatList data={data} renderItem={renderItem} />
     </View>
   );
 };
 export default ListUser;
-
-// export default ListUser;
