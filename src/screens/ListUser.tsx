@@ -1,12 +1,19 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, Text, View, TouchableOpacity} from 'react-native';
+import {CheckBox} from 'react-native-elements';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useDispatch, useSelector} from 'react-redux';
-import {getApiToData, mardRow, deleteRow} from '../state/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  getApiToData,
+  mardRow,
+  deleteRow,
+  filterData,
+  checkAll,
+} from '../state/actions';
 import {ApiItem, TypeState} from '../state/types';
-import {ItemTable, styles} from '../Styles';
+import {ActionBar, ItemTable, styles} from '../Styles';
 
 const ListUser: React.FC = (): React.ReactElement => {
   const [showModal, setShowModal] = useState({
@@ -14,8 +21,14 @@ const ListUser: React.FC = (): React.ReactElement => {
     id: '',
   });
   const dispatch = useDispatch();
-  const selectIsOn = (state: TypeState) => state.data;
-  const data = useSelector(selectIsOn)
+  const selectIsOn = (state: TypeState) => state;
+  let dataraw = useSelector(selectIsOn);
+  const data =
+    dataraw.filter === 'STAR'
+      ? dataraw.data.filter((i) => i.status == true)
+      : dataraw.filter === 'NOSTAR'
+      ? dataraw.data.filter((i) => i.status == false)
+      : dataraw.data;
   useEffect(() => {
     const getApi = async () => {
       try {
@@ -44,8 +57,12 @@ const ListUser: React.FC = (): React.ReactElement => {
   }
   const renderItem = ({item}: {item: ApiItem}) => (
     <ItemTable onPress={() => navigation.navigate('UserDetail', {data: item})}>
+      <CheckBox
+        containerStyle={{margin: 0, padding: 0}}
+        checked={item.factor_authentication}
+      />
       <Text>{item.username}</Text>
-      <Text style={{width: 150}}>{item.name}</Text>
+      <Text style={{width: 130}}>{item.name}</Text>
       <Text>{item.balance}</Text>
       <Icon
         onPress={() => mardItem(String(item.id))}
@@ -59,7 +76,6 @@ const ListUser: React.FC = (): React.ReactElement => {
         color="hotpink"></Icon>
     </ItemTable>
   );
-
   return (
     <View>
       <Modal isVisible={showModal.show}>
@@ -82,7 +98,29 @@ const ListUser: React.FC = (): React.ReactElement => {
           </View>
         </View>
       </Modal>
+      <ActionBar>
+        <CheckBox
+          containerStyle={{margin: 0, padding: 0}}
+          title="Select all"
+          checked={dataraw.checkAll}
+          onPress={() => dispatch(checkAll())}
+        />
+        <Text style={{width: 150}}></Text>
+        <Text></Text>
+        <TouchableOpacity
+          onPress={() => dispatch(filterData())}
+          style={{marginRight: 8}}>
+          <Icon name="md-filter-outline" size={24} color="#000"></Icon>
+        </TouchableOpacity>
+        <TouchableOpacity style={{marginRight: 8}}>
+          <Icon name="md-star" size={24} color="yellow"></Icon>
+        </TouchableOpacity>
+        <Icon name="md-trash" size={24} color="hotpink"></Icon>
+      </ActionBar>
       <FlatList data={data} renderItem={renderItem} />
+      {/* <Filter onPress={() => dispatch(filterData())}>
+        <Icon name="md-star" size={24} color="yellow"></Icon>
+      </Filter> */}
     </View>
   );
 };
