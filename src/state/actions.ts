@@ -11,6 +11,9 @@ export function deleteRow(id: string): TypeAction {
 export function filterData(): TypeAction {
   return {type: ActionTypes.FILTER, data: [], id: ''};
 }
+export function checkRow(id: string): TypeAction {
+  return {type: ActionTypes.CHECK, data: [], id: id};
+}
 export function checkAll(): TypeAction {
   return {type: ActionTypes.CHECKALL, data: [], id: ''};
 }

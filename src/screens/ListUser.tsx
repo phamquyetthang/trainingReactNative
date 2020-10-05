@@ -5,17 +5,10 @@ import {CheckBox} from 'react-native-elements';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  getApiToData,
-  mardRow,
-  deleteRow,
-  filterData,
-  checkAll,
-  mardAll,
-  deleAll,
-} from '../state/actions';
+import HeaderList from '../components/HeaderList';
+import {getApiToData, mardRow, deleteRow, checkRow} from '../state/actions';
 import {ApiItem, TypeState} from '../state/types';
-import {ActionBar, ItemTable, styles} from '../Styles';
+import {ItemTable, styles} from '../Styles';
 
 const ListUser: React.FC = (): React.ReactElement => {
   const [showModal, setShowModal] = useState({
@@ -39,11 +32,7 @@ const ListUser: React.FC = (): React.ReactElement => {
         );
         let jsonData = await response.json();
         dispatch(getApiToData(jsonData));
-        // console.log(dataApi.data);
       } catch (error) {
-        // setDataApi({
-        //   data: [],
-        // });
         dispatch(getApiToData([]));
       }
     };
@@ -62,6 +51,7 @@ const ListUser: React.FC = (): React.ReactElement => {
       <CheckBox
         containerStyle={{margin: 0, padding: 0}}
         checked={item.factor_authentication}
+        onPress={()=>dispatch(checkRow(String(item.id)))}
       />
       <Text>{item.username}</Text>
       <Text style={{width: 130}}>{item.name}</Text>
@@ -100,33 +90,9 @@ const ListUser: React.FC = (): React.ReactElement => {
           </View>
         </View>
       </Modal>
-      <ActionBar>
-        <CheckBox
-          containerStyle={{margin: 0, padding: 0}}
-          title="Select all"
-          checked={dataraw.checkAll}
-          onPress={() => dispatch(checkAll())}
-        />
-        <Text style={{width: 150}}></Text>
-        <Text></Text>
-        <TouchableOpacity
-          onPress={() => dispatch(filterData())}
-          style={{marginRight: 8}}>
-          <Icon name="md-filter-outline" size={24} color="#000"></Icon>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{marginRight: 8}}
-          onPress={() => dispatch(mardAll())}>
-          <Icon name="md-star" size={24} color="yellow"></Icon>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => dispatch(deleAll())}>
-          <Icon name="md-trash" size={24} color="hotpink"></Icon>
-        </TouchableOpacity>
-      </ActionBar>
+      <HeaderList />
       <FlatList data={data} renderItem={renderItem} />
     </View>
   );
 };
 export default ListUser;
-
-// export default ListUser;

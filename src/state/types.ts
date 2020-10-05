@@ -20,6 +20,7 @@ export enum ActionTypes{
     DELETE = "DELETE",
     MARD = "MARD",
     FILTER = "FILTER",
+    CHECK="CHECK",
     CHECKALL = "CHECKALL",
     MARDALL = "MARDALL",
     DELEALL = "DELEALL"
