@@ -4,6 +4,7 @@ const initData: TypeState = {
   data: [],
   filter: 'NONE',
   checkAll: false,
+  startAll: false
 };
 export const reducer = (state = initData, action: TypeAction): TypeState => {
   switch (action.type) {
@@ -51,6 +52,25 @@ export const reducer = (state = initData, action: TypeAction): TypeState => {
         data: state.data.map((i) => {
           return {...i, factor_authentication: !state.checkAll};
         }),
+      };
+    }
+    case ActionTypes.MARDALL: {
+      return {
+        ...state,
+        startAll: !state.startAll,
+        data: state.data.map((i) => {
+          if (i.factor_authentication === true) {
+            return {...i, status: !state.startAll};
+          } else {
+            return i;
+          }
+        }),
+      };
+    }
+    case ActionTypes.DELEALL: {
+      return {
+        ...state,
+        data: state.data.filter((i) => i.factor_authentication !== state.checkAll),
       };
     }
     default:

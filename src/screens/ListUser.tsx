@@ -11,6 +11,8 @@ import {
   deleteRow,
   filterData,
   checkAll,
+  mardAll,
+  deleAll,
 } from '../state/actions';
 import {ApiItem, TypeState} from '../state/types';
 import {ActionBar, ItemTable, styles} from '../Styles';
@@ -112,15 +114,16 @@ const ListUser: React.FC = (): React.ReactElement => {
           style={{marginRight: 8}}>
           <Icon name="md-filter-outline" size={24} color="#000"></Icon>
         </TouchableOpacity>
-        <TouchableOpacity style={{marginRight: 8}}>
+        <TouchableOpacity
+          style={{marginRight: 8}}
+          onPress={() => dispatch(mardAll())}>
           <Icon name="md-star" size={24} color="yellow"></Icon>
         </TouchableOpacity>
-        <Icon name="md-trash" size={24} color="hotpink"></Icon>
+        <TouchableOpacity onPress={() => dispatch(deleAll())}>
+          <Icon name="md-trash" size={24} color="hotpink"></Icon>
+        </TouchableOpacity>
       </ActionBar>
       <FlatList data={data} renderItem={renderItem} />
-      {/* <Filter onPress={() => dispatch(filterData())}>
-        <Icon name="md-star" size={24} color="yellow"></Icon>
-      </Filter> */}
     </View>
   );
 };

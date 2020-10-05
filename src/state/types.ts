@@ -13,13 +13,16 @@ export interface TypeState{
     data: ApiItem[];
     filter: string;
     checkAll: boolean;
+    startAll: boolean;
 }
 export enum ActionTypes{
     CALLAPI = "CALAPI",
     DELETE = "DELETE",
     MARD = "MARD",
     FILTER = "FILTER",
-    CHECKALL = "CHECKALL"
+    CHECKALL = "CHECKALL",
+    MARDALL = "MARDALL",
+    DELEALL = "DELEALL"
 }
 export interface TypeAction{
     type: ActionTypes,

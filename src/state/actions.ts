@@ -14,3 +14,9 @@ export function filterData(): TypeAction {
 export function checkAll(): TypeAction {
   return {type: ActionTypes.CHECKALL, data: [], id: ''};
 }
+export function mardAll(): TypeAction {
+  return {type: ActionTypes.MARDALL, data: [], id: ''};
+}
+export function deleAll(): TypeAction {
+  return {type: ActionTypes.DELEALL, data: [], id: ''};
+}
