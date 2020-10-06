@@ -2,8 +2,9 @@ import React from 'react';
 import {Navigation} from 'react-native-navigation';
 import Auth from '../../screens/Auth';
 import ListUser from '../../screens/ListUser';
+import UserDetail from '../../screens/UserDetail';
 import AppStoreProvider from '../../state/provider';
-import { AUTH, LISTUSER } from './screen';
+import { AUTH, LISTUSER, USERDETAIL } from './screen';
 interface Props {
   // any other props that come into the component, you don't have to explicitly define children.
 }
@@ -22,4 +23,5 @@ function WrappedComponent(Component: any) {
 export default function () {
   Navigation.registerComponent(AUTH, () => WrappedComponent(Auth));
   Navigation.registerComponent(LISTUSER, () => WrappedComponent(ListUser));
+  Navigation.registerComponent(USERDETAIL, () => WrappedComponent(UserDetail));
 }

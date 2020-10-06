@@ -10,6 +10,7 @@ import styled from 'styled-components/native';
 import {UserDetailProps} from '../navigation/typeCheck';
 import {styles} from '../Styles';
 import ImagePicker from 'react-native-image-picker';
+import { ApiItem } from '../state/types';
 
 
 const DetailScreen = styled.View`
@@ -40,8 +41,9 @@ const Cam = styled.TouchableOpacity`
   padding: 8px;
   border-radius: 18px;
 `;
-const UserDetail = () => {
-  let data = useRoute<UserDetailProps>().params.data;
+const UserDetail = ({item}: {item: ApiItem}) => {
+  // let data = useRoute<UserDetailProps>().params.data;
+  let data = item
   const [imageUrl, setImageUrl] = useState<string>();
   const launchCamera = () => {
     let options = {

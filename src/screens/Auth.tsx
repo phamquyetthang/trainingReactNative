@@ -9,14 +9,20 @@ import {
   View,
 } from 'react-native';
 import {Input} from 'react-native-elements';
+import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ACC from '../Data';
+import { pushSingleScreenApp } from '../navigation/rnn/naviagtion';
+import { LISTUSER } from '../navigation/rnn/screen';
 import {styles} from '../Styles';
 interface User {
   email: string;
   pass: string;
 }
-const Auth: React.FC = () => {
+interface Props{
+  componentId: string
+}
+const Auth: React.FC<Props> = (props) => {
   const [user, setUser] = useState<User>({
     email: '',
     pass: '',
@@ -33,9 +39,20 @@ const Auth: React.FC = () => {
       pass: e,
     });
   }
-  function changeSreen():void {
-    //
-  }
+  // function changeSreen() {
+  //    Navigation.push(props.componentId, {
+  //     component: {
+  //       name: LISTUSER,
+  //       options: {
+  //         topBar: {
+  //           title: {
+  //             text: 'ListUser screen'
+  //           }
+  //         }
+  //       }
+  //     }
+  //   })
+  // }
   function checkLogin(): void {
     let check: string = 'fail';
     if (user.email == '' || user.pass == '') {
@@ -51,7 +68,8 @@ const Auth: React.FC = () => {
       }
     }
     if (check === 'pass') {
-      changeSreen();
+      pushSingleScreenApp()
+      // changeSreen()
     } else if (check === 'lost') {
       Alert.alert('Hãy điền đủ thông tin');
     } else {

@@ -1,16 +1,18 @@
-import {useNavigation} from '@react-navigation/native';
+// import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, Text, View, TouchableOpacity} from 'react-native';
 import {CheckBox} from 'react-native-elements';
 import Modal from 'react-native-modal';
+import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import HeaderList from '../components/HeaderList';
+import { USERDETAIL } from '../navigation/rnn/screen';
 import {getApiToData, mardRow, deleteRow, checkRow} from '../state/actions';
 import {ApiItem, TypeState} from '../state/types';
 import {ItemTable, styles} from '../Styles';
 
-const ListUser: React.FC = (): React.ReactElement => {
+const ListUser = ({componentId}: {componentId: string}) => {
   const [showModal, setShowModal] = useState({
     show: false,
     id: '',
@@ -38,7 +40,7 @@ const ListUser: React.FC = (): React.ReactElement => {
     };
     getApi();
   }, []);
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   function mardItem(id: string) {
     dispatch(mardRow(id));
   }
@@ -46,8 +48,28 @@ const ListUser: React.FC = (): React.ReactElement => {
     setShowModal({show: true, id: id});
     // dispatch(deleteRow(id));
   }
+  function changeSreen(item:ApiItem) {
+    Navigation.push(componentId, {
+     component: {
+       name: USERDETAIL,
+       options: {
+         topBar: {
+           title: {
+             text: 'ListUser screen'
+           }
+         }
+       },
+       passProps: {
+         item: item
+       }
+     }
+   })
+ }
   const renderItem = ({item}: {item: ApiItem}) => (
-    <ItemTable onPress={() => navigation.navigate('UserDetail', {data: item})}>
+    <ItemTable 
+    // onPress={() => navigation.navigate('UserDetail', {data: item})}
+    onPress={() => changeSreen(item)}
+    >
       <CheckBox
         containerStyle={{margin: 0, padding: 0}}
         checked={item.factor_authentication}
