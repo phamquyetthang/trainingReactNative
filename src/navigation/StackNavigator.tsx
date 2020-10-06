@@ -10,16 +10,14 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const StackNavigator: React.FC = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          header: () => false,
-        }}>
-        {/* <Stack.Screen name="Auth" component={Auth} /> */}
-        <Stack.Screen name="ListUser" component={ListUser} />
-        <Stack.Screen name="UserDetail" component={UserDetail} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        header: () => false,
+      }}>
+      {/* <Stack.Screen name="Auth" component={Auth} /> */}
+      <Stack.Screen name="ListUser" component={ListUser} />
+      <Stack.Screen name="UserDetail" component={UserDetail} />
+    </Stack.Navigator>
   );
 };
 
