@@ -164,7 +164,8 @@ export async function bottomTapScreenApp(){
             }
           }
         ]
-      }
+      },
+      
     }
   });
   Navigation.setDefaultOptions({
@@ -198,4 +199,65 @@ export async function bottomTapScreenApp(){
       selectedIconColor: 'aqua',
     },
   });
+}
+
+export async function mutilTypeNavi(){
+  const icons = await prepareIcons();
+  Navigation.setRoot({
+    root: {
+      sideMenu: {
+        left: {
+          component: {
+            name: "Sample2",
+            passProps: {
+              text: 'This is a left side menu screen'
+            }
+          }
+        },
+        center: {
+          bottomTabs: {
+            children: [{
+              stack: {
+                children: [{
+                  component: {
+                    name: LISTUSER,
+                  }
+                }],
+                options: {
+                  bottomTab: {
+                    icon: icons.firstBottomTabIcon,
+                    testID: 'HOME_TAB',
+                  }
+                }
+              }
+            },
+            {
+              stack: {
+                children: [{
+                  component: {
+                    name: "Sample",
+                  }
+                }],
+                options: {
+                  bottomTab: {
+                    icon: icons.secondBottomTabIcon,
+                    testID: 'MAP_TAB',
+                  }
+                }
+              }
+            }]
+          }
+        },
+        right: {
+          component: {
+            name: "Sample2",
+            passProps: {
+              text: 'This is a right side menu screen'
+            }
+          }
+        }
+      }
+    }
+  });
+
 }
