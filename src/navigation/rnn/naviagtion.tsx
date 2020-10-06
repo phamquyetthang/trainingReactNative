@@ -59,31 +59,33 @@ export function pushSingleScreenApp() {
   Navigation.setRoot({
     root: {
       stack: {
-        children: [{
-          component: {
-            name: LISTUSER,
-            options: {
-              topBar: {
-                title: {
-                  text: 'SINGLE SCREEN APP'
+        children: [
+          {
+            component: {
+              name: LISTUSER,
+              options: {
+                topBar: {
+                  title: {
+                    text: 'SINGLE SCREEN APP',
+                  },
+                  leftButtons: [
+                    {
+                      id: 'nav_user_btn',
+                      color: 'white',
+                    },
+                  ],
+                  rightButtons: [
+                    {
+                      id: 'nav_logout_btn',
+                      color: 'white',
+                    },
+                  ],
                 },
-                leftButtons: [
-                  {
-                    id: 'nav_user_btn',
-                    color: 'white'
-                  }
-                ],
-                rightButtons: [
-                  {
-                    id: 'nav_logout_btn',
-                    color: 'white'
-                  }
-                ]
-              }
-            }
-          }
-        }]
-      }
-    }
+              },
+            },
+          },
+        ],
+      },
+    },
   });
 }
