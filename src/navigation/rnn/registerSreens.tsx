@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import Auth from '../../screens/Auth';
 import ListUser from '../../screens/ListUser';
@@ -24,4 +25,11 @@ export default function () {
   Navigation.registerComponent(AUTH, () => WrappedComponent(Auth));
   Navigation.registerComponent(LISTUSER, () => WrappedComponent(ListUser));
   Navigation.registerComponent(USERDETAIL, () => WrappedComponent(UserDetail));
+  Navigation.registerComponent("Sample", () => WrappedComponent(SampleScreen));
+}
+
+function SampleScreen(){
+  return (
+    <Text>Sample 1</Text>
+  )
 }
