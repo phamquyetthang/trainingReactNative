@@ -7,22 +7,23 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ListUser from '../screens/ListUser';
-import { Text } from 'react-native';
+import {Text} from 'react-native';
 import UserDetail from '../screens/UserDetail';
+import Auth from '../screens/Auth';
 
 const Tab = createMaterialBottomTabNavigator();
 function Menu() {
   return (
     <Tab.Navigator
       initialRouteName="Screen1"
-    //   tabBarOptions={{
-    //     activeTintColor: '#fff',
-    //     inactiveTintColor: '#90CAF9',
-    //     showIcon: true,
-    //     showLabel: false,
-    //     style: {height: 56, backgroundColor: '#0D47A1'},
-    //   }}
-      >
+      //   tabBarOptions={{
+      //     activeTintColor: '#fff',
+      //     inactiveTintColor: '#90CAF9',
+      //     showIcon: true,
+      //     showLabel: false,
+      //     style: {height: 56, backgroundColor: '#0D47A1'},
+      //   }}
+    >
       <Tab.Screen
         name="Screen1"
         component={ListUser}
@@ -65,10 +66,21 @@ export default function BottomTab() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
-        //   header: () => null,
-        }}>
-        <Stack.Screen name="Main" component={Menu} options={{header: ()=>null}}/>
+        screenOptions={
+          {
+            //   header: () => null,
+          }
+        }>
+        <Stack.Screen
+          name="Auth"
+          component={Auth}
+          options={{header: () => null}}
+        />
+        <Stack.Screen
+          name="Main"
+          component={Menu}
+          options={{header: () => null}}
+        />
         <Stack.Screen name="ListUser" component={ListUser} />
         <Stack.Screen name="UserDetail" component={UserDetail} />
       </Stack.Navigator>
@@ -76,12 +88,8 @@ export default function BottomTab() {
   );
 }
 const Sample1 = () => {
-    return (
-        <Text>hello1</Text>
-    )
-}
+  return <Text>hello1</Text>;
+};
 const Sample2 = () => {
-    return (
-        <Text>hello3</Text>
-    )
-}
+  return <Text>hello3</Text>;
+};

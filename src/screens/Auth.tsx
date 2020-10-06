@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import {Input} from 'react-native-elements';
+import {TextInput} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ACC from '../Data';
 import {styles} from '../Styles';
@@ -61,24 +62,26 @@ const Auth: React.FC = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.loginForm}>
         <Text style={styles.text1}>LOGIN</Text>
-        <Input
+        <TextInput
           label="Your email address"
           placeholder="email@address.com"
-          leftIcon={<Icon name="mail" size={24} color="gray" />}
+          // leftIcon={<Icon name="mail" size={24} color="gray" />}
           value={user.email}
           onChangeText={(e) => onChangeEmail(e)}
           autoFocus={true}
           keyboardType="email-address"
           autoCapitalize="none"
+          style={{marginBottom: 32}}
         />
-        <Input
+        <TextInput
           label="Passwork"
           placeholder="passwork"
-          leftIcon={<Icon name="md-lock-closed" size={24} color="gray" />}
+          // leftIcon={<Icon name="md-lock-closed" size={24} color="gray" />}
           secureTextEntry={true}
           value={user.pass}
           onChangeText={(e) => onChangePass(e)}
           keyboardType="number-pad"
+          style={{marginBottom: 32}}
         />
         <TouchableOpacity style={styles.button1} onPress={() => checkLogin()}>
           <Text style={{fontSize: 16}}>Login</Text>
