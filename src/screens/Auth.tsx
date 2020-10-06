@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+
 import React, {useState} from 'react';
 import {
   Alert,
@@ -21,7 +21,6 @@ const Auth: React.FC = () => {
     email: '',
     pass: '',
   });
-  const navigation = useNavigation();
   function onChangeEmail(e: string): void {
     setUser({
       ...user,
@@ -33,6 +32,9 @@ const Auth: React.FC = () => {
       ...user,
       pass: e,
     });
+  }
+  function changeSreen():void {
+    //
   }
   function checkLogin(): void {
     let check: string = 'fail';
@@ -49,7 +51,7 @@ const Auth: React.FC = () => {
       }
     }
     if (check === 'pass') {
-      navigation.navigate('ListUser');
+      changeSreen();
     } else if (check === 'lost') {
       Alert.alert('Hãy điền đủ thông tin');
     } else {
